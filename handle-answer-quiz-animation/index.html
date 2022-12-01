@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <livelike-widgets class="widgets-timeline" programid="7e8bd972-12f1-455c-922e-75922b4a6c16"
+        mode="interactive-timeline"></livelike-widgets>
+    <script src="https://unpkg.com/@livelike/engagementsdk@2.19.0/livelike.umd.js"></script>
+    <script type="text/javascript">
+        const clientId = "05DUnhP0Y2G6oWs8xMJnfFYGfkxc8iJITUib8R57";
+        const handleResultAnimation = e => {
+            const { result, element, widget, answer } = e.detail;
+            const animationEl = element.querySelector('.animation-container');
+            if (result !== 'unattempted' && !animationEl) {
+                let imgUrl = answer.is_correct ? './images/correct.gif' : './images/incorrect.gif';
+
+                const elStr =
+                    `<div class="animation-container" style="position: absolute; z-index: 10; left: 50%; width: 100%; top: 50%; transform: translate(-50%,-50%); z-index: 1000; width: 100%;">
+    <img class="animation-image" style="height: 100%; width: 100%;" src="${imgUrl}" alt="Result animation">
+</div>`;
+
+                const widgetEl = element.querySelector('livelike-widget-root');
+                widgetEl && widgetEl.insertAdjacentHTML(
+                    'beforeend',
+                    elStr
+                );
+                widgetEl && setTimeout(() => {
+                    const animation = element.querySelector('.animation-image');
+                    const gif = element.querySelector('.animation-container');
+                    if (gif && animation) {
+                        animation.src = "";
+                        gif.removeChild(animation);
+                    }
+                }, 2250);
+            }
+
+        };
+
+
+        LiveLike.init({
+            clientId: clientId
+        }).then(() => {
+            const widgetsContainer = document.querySelector('livelike-widgets');
+            widgetsContainer.addEventListener('answer', handleResultAnimation);
+        });
+    </script>
+</body>
+
+</html>
