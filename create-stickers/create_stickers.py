@@ -3,9 +3,10 @@ import os
 import requests
 from pathlib import Path
 
-sticker_packId = "f4087992-0f26-449d-9934-dc482e423a8b"
-folder_path = "/Users/changdeojadhav/Desktop/reactions"
-access_token = "a6unESXCHDHaxyqh-GE1MWOIxBpD_mzu6susT1nr7KcgcZazugpfJg"
+#Change below var values
+sticker_packId = "stick-pack-id"
+folder_path = "folder-path"
+access_token = "your-access-token-here"
 
 
 def create_sticker(path_array):
